@@ -1,15 +1,30 @@
 import React, { useState } from "react";
 import InputField from "./components/InputField";
+import { Todo } from "./model";
 import "./App.css";
 
 const App: React.FC = () => {
-  const [todo, setToDo] = useState<string>("");
+  const [todoText, setToDoText] = useState<string>("");
+  const [todos, setToDos] = useState<Todo[]>([]);
+
+  const handleAdd = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (todoText) {
+      setToDos([...todos, { id: Date.now(), todo: todoText, isDone: false }]);
+      setToDoText("");
+    }
+  };
+
   return (
     <>
       <div className="App">
         <span className="heading">Kazi</span>
 
-        <InputField todo={todo} setToDo={setToDo} />
+        <InputField
+          todoText={todoText}
+          setToDoText={setToDoText}
+          handleAdd={handleAdd}
+        />
       </div>
     </>
   );
