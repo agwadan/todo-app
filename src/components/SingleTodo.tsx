@@ -21,6 +21,10 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
     );
   };
 
+  const handleEdit =(id: number) => {
+    console.log("Editing task: " + id);
+  }
+
   /* Function to handle deleting a task 
   __________________________________________*/
   const handleDelete = (id: number) => {
