@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Todo } from "../model";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdDone } from "react-icons/md";
@@ -13,6 +13,12 @@ type Props = {
 const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [todoToEdit, setTodoToEdit] = useState<string>(todo.todo);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [edit]);
 
   /* Function to handle completing a task 
   __________________________________________*/
@@ -49,7 +55,7 @@ const SingleTodo: React.FC<Props> = ({ todo, todos, setTodos }) => {
           value={todoToEdit}
           onChange={(e) => setTodoToEdit(e.target.value)}
           className="todos__single--text"
-          /* ref={inputRef} */
+          ref={inputRef}
         />
       ) : todo.isDone ? (
         <s className="todos__single--text">{todo.todo}</s>
